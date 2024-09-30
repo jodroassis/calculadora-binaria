@@ -1,0 +1,91 @@
+body {
+    background-color: #0d0d0d;
+    margin: 100px 0;
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+    background-image: url("galaxia.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#div-principal {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 20px;
+}
+
+.calculadora {
+    background-color: rgba(28, 24, 44, 0.9);
+    padding: 40px;
+    width: 50%;
+    box-shadow: 0 4px 15px rgba(97, 37, 151, 0.6);
+    border-radius: 15px;
+    min-height: 400px; /* Adicionando altura mínima para manter o mesmo tamanho */
+}
+
+h1 {
+    text-align: center;
+    color: #9b59b6;
+}
+
+.div-input {
+    background-color: #393d4f;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.div-input h3 {
+    color: #6a5acd;
+    margin-bottom: 10px;
+}
+
+.div-resultado {
+    background-color: #44475a;
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.div-resultado b {
+    color: #9b59b6;
+}
+
+input[type="text"] {
+    border-radius: 5px;
+    padding: 5px;
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+select {
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+footer {
+    text-align: center;
+    margin-top: 50px;
+    font-size: 14px;
+    color: #ffffff;
+}
+
+footer span {
+    color: #b700ff;
+}
+
+/* Removendo responsividade que coloca as calculadoras em colunas verticais */
+@media (max-width: 768px) {
+    #div-principal {
+        flex-wrap: nowrap; /* Manter lado a lado mesmo em telas menores */
+    }
+}

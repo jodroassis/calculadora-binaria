@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Conversão</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="div-principal">
+
+        <!-- Calculadora para converter bases -->
+        <div class="calculadora">
+            <h1>Conversor de Bases</h1>
+
+            <div class="div-input">
+                <h3>Escolha a Base de Entrada</h3>
+                <select id="slt_baseEntrada" onchange="converter()">
+                    <option value="escolha" selected>Escolha uma base</option>
+                    <option value="10">Decimal</option>
+                    <option value="2">Binário</option>
+                    <option value="16">Hexadecimal</option>
+                    <option value="8">Octal</option>
+                </select>
+            </div>
+
+            <div class="div-input">
+                <h3>Valor a Converter</h3>
+                <input id="ipt_valor" type="text" placeholder="Digite o valor" oninput="converter()">
+            </div>
+
+            <div class="div-resultado">
+                <b>Binário:</b> <span id="binarioResultado"></span>
+            </div>
+
+            <div class="div-resultado">
+                <b>Hexadecimal:</b> <span id="hexaResultado"></span>
+            </div>
+
+            <div class="div-resultado">
+                <b>Octal:</b> <span id="octalResultado"></span>
+            </div>
+
+            <div class="div-resultado">
+                <b>Decimal:</b> <span id="decimalResultado"></span>
+            </div>
+        </div>
+
+        <!-- Calculadora para fazer operações com as bases -->
+        <div class="calculadora">
+            <h1>Operações com Bases</h1>
+
+            <div class="div-input">
+                <h3>Número 1</h3>
+                <input id="ipt_n1" type="text" placeholder="Digite o valor" oninput="calcular()">
+            </div>
+
+            <div class="div-input">
+                <h3>Número 2</h3>
+                <input id="ipt_n2" type="text" placeholder="Digite o valor" oninput="calcular()">
+            </div>
+
+            <div class="div-input">
+                <h3>Base da Operação</h3>
+                <select id="slt_baseOperacao" onchange="calcular()">
+                    <option value="escolha2" selected>Escolha uma base</option>
+                    <option value="10">Decimal</option>
+                    <option value="2">Binário</option>
+                    <option value="16">Hexadecimal</option>
+                    <option value="8">Octal</option>
+                </select>
+            </div>
+
+            <div class="div-input">
+                <h3>Operação</h3>
+                <select id="slt_operacao" onchange="calcular()">
+                    <option value="soma" selected>Soma</option>
+                    <option value="subtracao">Subtração</option>
+                    <option value="multiplicacao">Multiplicação</option>
+                    <option value="divisao">Divisão</option>
+                </select>
+            </div>
+
+            <div class="div-resultado">
+                <b>Resultado da Operação:</b> <span id="resultadoOperacao"></span>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>Direitos reservados <span>&copy; 2024</span></p>
+        <p>Feito por João Assis</p>
+    </footer>
+
+    <script>
+        // Função de conversão de bases
+        function converter() {
+            var slt_baseEntrada = parseInt(document.getElementById('slt_baseEntrada').value);
+            var valor = document.getElementById('ipt_valor').value;
+            
+            // Verificar se o valor é válido na base de entrada
+            var numero = parseInt(valor, slt_baseEntrada);
+            if (isNaN(numero)) {
+                document.getElementById('binarioResultado').innerText = "Entrada inválida";
+                document.getElementById('hexaResultado').innerText = "Entrada inválida";
+                document.getElementById('octalResultado').innerText = "Entrada inválida";
+                document.getElementById('decimalResultado').innerText = "Entrada inválida";
+                return;
+            }
+
+            document.getElementById('binarioResultado').innerText = numero.toString(2);
+            document.getElementById('hexaResultado').innerText = numero.toString(16).toUpperCase();
+            document.getElementById('octalResultado').innerText = numero.toString(8);
+            document.getElementById('decimalResultado').innerText = numero.toString(10);
+        }
+
+        // Função para operações entre números em diferentes bases
+        function calcular() {
+            var n1 = document.getElementById('ipt_n1').value;
+            var n2 = document.getElementById('ipt_n2').value;
+            var base = parseInt(document.getElementById('slt_baseOperacao').value);
+            var operacao = document.getElementById('slt_operacao').value;
+
+            if (n1 === "" || n2 === "") {
+                document.getElementById('resultadoOperacao').innerText = "";
+                return;
+            }
+
+            var numero1 = parseInt(n1, base);
+            var numero2 = parseInt(n2, base);
+
+            if (isNaN(numero1) || isNaN(numero2)) {
+                document.getElementById('resultadoOperacao').innerText = "Entrada inválida. Tente novamente";
+                return;
+            }
+
+            var resultado;
+            switch (operacao) {
+                case 'soma':
+                    resultado = numero1 + numero2;
+                    break;
+                case 'subtracao':
+                    resultado = numero1 - numero2;
+                    break;
+                case 'multiplicacao':
+                    resultado = numero1 * numero2;
+                    break;
+                case 'divisao':
+                    if (numero2 === 0) {
+                        document.getElementById('resultadoOperacao').innerText = "Impossível dividir por zero";
+                        return;
+                    }
+                    resultado = Math.floor(numero1 / numero2);
+                    break;
+                default:
+                    document.getElementById('resultadoOperacao').innerText = "Operação inválida";
+                    return;
+            }
+
+            document.getElementById('resultadoOperacao').innerText = resultado.toString(base).toUpperCase();
+        }
+    </script>
+</body>
+</html>
